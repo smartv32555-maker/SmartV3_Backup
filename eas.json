@@ -1,0 +1,23 @@
+{
+  "cli": {
+    "version": ">= 3.1.1"
+  },
+  "build": {
+    "development": {
+      "developmentClient": true,
+      "distribution": "internal"
+    },
+    "preview": {
+      "distribution": "internal"
+    },
+    "production": {
+      "channel": "production",
+      "env": {
+        "EAS_BUILD_PROFILE": "production"
+      },
+      "android": {
+        "buildType": "apk"
+      }
+    }
+  }
+}

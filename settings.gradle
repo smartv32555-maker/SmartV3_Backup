@@ -1,0 +1,26 @@
+// Project Settings (Groovy DSL) - Final Fix for Plugin resolution
+
+rootProject.name = "SmartV3"
+include ':app'
+
+// [FIX]: ใช้ pluginManagement เพื่อให้ Gradle หา Plugins พื้นฐานได้
+pluginManagement {
+    repositories {
+        gradlePluginPortal()
+        google()
+        mavenCentral()
+    }
+}
+
+// [FIX]: กำหนด Repository ที่ App Module จะใช้
+dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    repositories {
+        google()
+        mavenCentral()
+        
+        // Repository สำหรับ React Native
+        maven { url "$rootDir/../node_modules/react-native/android" }
+        maven { url "https://www.jitpack.io" }
+    }
+}

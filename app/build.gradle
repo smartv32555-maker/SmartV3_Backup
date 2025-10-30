@@ -1,0 +1,92 @@
+// NOTE: โปรดบันทึกไฟล์นี้เพื่อแทนที่โค้ดเดิมทั้งหมดใน C:\SmartV3\android\app\build.gradle
+// This file is a standard, robust build file for a React Native application.
+
+// 1. นำเข้าปลั๊กอิน (Plugins)
+apply plugin: "com.android.application"
+apply plugin: "org.jetbrains.kotlin.android"
+
+// *** CONFIGURATION FOR REACT NATIVE AND EXPO (if applicable) ***
+// กำหนดตัวแปร SDK ให้ตรงตามที่ต้องการ
+def compileSdkVersion = 34
+def targetSdkVersion = 34
+def minSdkVersion = 24 // อัพเดทเป็น 24 ตามความเข้ากันได้
+
+// 2. Android Configuration
+android {
+    // 🚩 กำหนด Namespace (ตามที่ระบุ)
+    namespace "com.smartv3"
+
+    compileSdkVersion compileSdkVersion
+
+    defaultConfig {
+        applicationId "com.smartv3"
+        minSdkVersion minSdkVersion
+        targetSdkVersion targetSdkVersion
+        versionCode 1
+        versionName "1.0"
+        
+        // เพิ่ม multiDexEnabled เพื่อรองรับแอปขนาดใหญ่ที่มี dependencies มาก
+        multiDexEnabled true
+    }
+
+    signingConfigs {
+        debug {
+            storeFile file('debug.keystore')
+            storePassword 'android'
+            keyAlias 'androiddebugkey'
+            keyPassword 'android'
+        }
+    }
+
+    buildTypes {
+        debug {
+            signingConfig signingConfigs.debug
+        }
+        release {
+            // ตั้งค่าสำหรับ Release build
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
+            signingConfig signingConfigs.debug // ใช้ debug config สำหรับตัวอย่างนี้
+        }
+    }
+
+    // 🚩 บังคับใช้ Java 11
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
+    }
+}
+
+// *** CRITICAL STEP: Apply React Native script (Always required) ***
+// โค้ดนี้จะดึงการตั้งค่าจาก React Native Core มาใช้
+def reactNativeScript = file("../node_modules/react-native/react.gradle")
+if (reactNativeScript.exists()) {
+    apply from: reactNativeScript
+} else {
+    // Fallback log message
+    println "WARNING: React Native's react.gradle not found. Check node_modules setup."
+}
+
+// *** CRITICAL FIX FOR react-native-abi PATH ISSUE ***
+// การแก้ไขปัญหาการลิงก์สคริปต์ที่ผิดตำแหน่งสำหรับโมดูล :react-native-abi
+if (project.hasProperty('react-native-abi')) {
+    // 🚩 ชี้ไปหา 'react.gradle' ในโฟลเดอร์แม่ของ :react-native-abi (นั่นคือ ReactAndroid)
+    apply from: new File(project(':react-native-abi').projectDir.getParentFile(), 'react.gradle')
+}
+
+
+// 3. Dependencies
+dependencies {
+    implementation fileTree(dir: "libs", include: ["*.jar"])
+
+    // Dependencies พื้นฐาน
+    implementation "androidx.core:core-ktx:1.10.1"
+    implementation "androidx.appcompat:appcompat:1.6.1"
+    implementation "androidx.multidex:multidex:2.0.1" // ต้องมีสำหรับ multiDexEnabled
+
+    // Dependencies ของโมดูลที่ลิงก์มา (ตัวอย่างที่ควรจะมี)
+    implementation project(':expo-modules-core')
+    implementation project(':react-native-abi') // โมดูลที่มีปัญหา
+    
+    // หากมี dependencies อื่นๆ ให้เพิ่มตรงนี้
+}

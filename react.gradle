@@ -1,0 +1,18 @@
+// This is the react.gradle file. It must be placed in the root directory (C:\SmartV3).
+// Its purpose is to define core path variables that other build scripts (like Expo's) rely on,
+// ensuring a smooth connection between the native (Android) and JavaScript (React Native) parts.
+
+// 1. Resolve React Native Root Path
+// This attempts to find 'react-native' within the node_modules folder.
+ext.reactNativeRoot = file("node_modules/react-native")
+
+// 2. Define CLI command (used by various tasks)
+// This is crucial for cross-platform compatibility (Windows vs. Unix-like systems)
+def isWindows() {
+    return System.getProperty('os.name').toLowerCase(Locale.ROOT).contains('windows')
+}
+def cliPath = isWindows() ? "node.exe" : "./cli.sh"
+ext.reactNativeCLI = new File(ext.reactNativeRoot, cliPath)
+
+// Optional: You can add custom build tasks here if needed later, but this setup
+// is sufficient to satisfy the 'apply from' requirement in settings.gradle.

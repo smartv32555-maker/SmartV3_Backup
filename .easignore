@@ -1,0 +1,17 @@
+.git
+.gitignore
+.expo
+.cache
+.vscode
+**/*.tsbuildinfo
+**/node_modules
+node_modules/
+android
+ios
+build/
+dist/
+temp/
+coverage/
+*.log
+!node_modules/@expo/vector-icons
+!node_modules/expo-splash-screen

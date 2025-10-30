@@ -1,0 +1,8 @@
+com.smartv3.app-pngs-0 C:\SmartV3\app\build\generated\res\pngs\release
+com.smartv3.app-resValues-1 C:\SmartV3\app\build\generated\res\resValues\release
+com.smartv3.app-rs-2 C:\SmartV3\app\build\generated\res\rs\release
+com.smartv3.app-mergeReleaseResources-3 C:\SmartV3\app\build\intermediates\incremental\release\mergeReleaseResources\merged.dir
+com.smartv3.app-mergeReleaseResources-4 C:\SmartV3\app\build\intermediates\incremental\release\mergeReleaseResources\stripped.dir
+com.smartv3.app-merged_res-5 C:\SmartV3\app\build\intermediates\merged_res\release
+com.smartv3.app-main-6 C:\SmartV3\app\src\main\res
+com.smartv3.app-release-7 C:\SmartV3\app\src\release\res

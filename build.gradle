@@ -1,0 +1,42 @@
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
+
+buildscript {
+ext {
+// กำหนดเวอร์ชัน SDK ที่ใช้สำหรับ Build (ควรเป็นเวอร์ชันใหม่ล่าสุด)
+compileSdkVersion = 34
+targetSdkVersion = 34
+minSdkVersion = 24
+kotlin_version = '1.8.0' // อัปเดตเวอร์ชัน Kotlin ให้เหมาะสมกับ RN 0.74/Gradle 8.x
+
+    // เวอร์ชัน Gradle Plugin สำหรับ Android
+    gradleVersion = '8.0.0'
+    
+    // เวอร์ชัน React Native Gradle Plugin สำหรับ Autolinking
+    reactNativeVersion = '0.74.7' 
+}
+
+repositories {
+    google()
+    mavenCentral()
+}
+dependencies {
+    classpath "com.android.tools.build:gradle:$gradleVersion"
+    classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+    // ไม่ต้องใช้ React Native Gradle Plugin ที่นี่แล้ว, จะไปใช้ใน app/build.gradle แทน
+}
+
+
+}
+
+allprojects {
+repositories {
+maven { url("$rootDir/../node_modules/react-native/android") }
+maven { url 'https://www.jitpack.io' }
+google()
+mavenCentral()
+}
+}
+
+tasks.register("clean", Delete) {
+delete rootProject.buildDir
+}
