@@ -1,0 +1,10 @@
+# Store passwords and key information here.
+# NOTE: This file must be placed in C:\SmartV3\key.properties
+
+# Password for the entire keystore file (my-upload-key.keystore)
+MYAPP_UPLOAD_STORE_PASSWORD=New_Smartv302082568z
+# Alias name for the key inside the keystore (usually 'my-key-alias')
+MYAPP_UPLOAD_KEY_ALIAS=my-key-alias
+
+# Password for the specific key (alias) inside the keystore
+MYAPP_UPLOAD_KEY_PASSWORD=New_Smartv302082568z
